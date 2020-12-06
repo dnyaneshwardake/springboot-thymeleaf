@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<head>
+<script
+	src="https://test-nmbbank.mtf.gateway.mastercard.com/checkout/version/57/checkout.js"
+	data-error="errorCallback" data-cancel="cancelCallback">
+	
+</script>
+<script type="text/javascript">
+	window.onload = function() {
+		document.getElementById('payNow').click();
+	}
+</script>
+<script type="text/javascript">
+	function errorCallback(error) {
+		console.log(JSON.stringify(error));
+		window.location.replace('http://localhost:8080/multichoice_online_payments/successNMB.do');
+	}
+	function cancelCallback() {
+		console.log('Payment cancelled');
+		window.location.replace('http://localhost:8080/multichoice_online_payments/successNMB.do');
+	}
+	Checkout.configure({
+		session : {
+			id : "SESSION0002385772211E4140795M30"
+		},
+		interaction : {
+			merchant : {
+				name : 'MultiChoice',
+				address : {
+					line1 : 'MultiChoice Explora Square,',
+					line2 : 'Randburg, South Africa.'
+				}
+			}
+		}
+	});
+</script> 
+<style>
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+</style>
+
+</head>
+
+<Body>
+	<div id="loader"></div>
+	<form>
+		<input type="button" id="payNow" hidden="true"
+			value="Pay with Payment Page" onclick="Checkout.showPaymentPage();" />
+	</form>
+</Body>
